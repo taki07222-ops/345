@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday Priyanka ❤️</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: radial-gradient(circle, #000000 40%, #6b0000);
+      overflow: hidden;
+      font-family: "Poppins", sans-serif;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      opacity: 0;
+      transition: opacity 1.5s ease, transform 1s ease;
+      transform: scale(0.95);
+      margin: 0 20px;
+    }
+
+    h1.active {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    button {
+      margin-top: 40px;
+      padding: 12px 24px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #ff5f6d;
+      background: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.3s;
+      z-index: 10;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+    }
+
+    /* Floating Hearts */
+    .heart {
+      position: absolute;
+      color: red;
+      font-size: 18px;
+      animation: floatHeart 6s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes floatHeart {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+    }
+
+    /* Balloons */
+    .balloon {
+      width: 50px;
+      height: 70px;
+      border-radius: 50%;
+      position: absolute;
+      bottom: -100px;
+      animation: floatUp linear infinite;
+      opacity: 0.9;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-110vh); opacity: 0; }
+    }
+
+    /* Sparkles */
+    .sparkle {
+      position: absolute;
+      background: white;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      animation: sparkleAnim 2s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes sparkleAnim {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-100vh); opacity: 0; }
+    }
+
+    /* Love You floating texts */
+    .loveBurst {
+      position: absolute;
+      color: #ff2d55;
+      font-size: 20px;
+      font-weight: bold;
+      animation: loveFloat 3s ease-out forwards;
+      text-shadow: 0 0 10px rgba(255, 0, 80, 0.6);
+      opacity: 0;
+    }
+
+    @keyframes loveFloat {
+      0% { transform: translateY(0) scale(0.5); opacity: 0; }
+      20% { opacity: 1; }
+      80% { opacity: 1; transform: translateY(-100px) scale(1.2) rotate(10deg); }
+      100% { opacity: 0; transform: translateY(-150px) scale(1.3) rotate(-10deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <h1 id="message">Happy Birthday my dear Wifey! 🎂</h1>
+  <button id="nextBtn">Achha suno 💬</button>
+
+  <div id="floating"></div>
+
+  <script>
+    const messages = [
+      "Happy Birthday my dear Wifey! 🎂",
+      "Gift ta nai daskai xi. Aaha k ta pate ha but aab je abai hai Hamra  ohne ee website bana deli dekhu ta kehan hai 😸💝.",
+      "You make my life brighter every day 🌟",
+      "I love you forever ❤️"
+    ];
+
+    const buttonTexts = [
+      "Achha suno 💬",
+      "Arey sry mtlab padho 😅",
+      "Ab ek aur baat 💕",
+      "Bas last hai 😚",
+      "Hehe done 😸"
+    ];
+
+    let index = 0;
+    const messageEl = document.getElementById("message");
+    const buttonEl = document.getElementById("nextBtn");
+    const floatingContainer = document.getElementById("floating");
+
+    function createFloatingItem(type) {
+      const el = document.createElement("div");
+      el.classList.add(type);
+      el.style.left = Math.random() * 100 + "vw";
+      el.style.animationDuration = 4 + Math.random() * 3 + "s";
+
+      if (type === "heart") el.textContent = "❤️";
+      if (type === "balloon") el.style.background = ["#ff3e3e","#ff7070","#ff9999","#ffcccb"][Math.floor(Math.random()*4)];
+      if (type === "sparkle") el.style.background = "white";
+
+      floatingContainer.appendChild(el);
+      setTimeout(() => el.remove(), 7000);
+    }
+
+    setInterval(() => createFloatingItem("heart"), 1000);
+    setInterval(() => createFloatingItem("balloon"), 1500);
+    setInterval(() => createFloatingItem("sparkle"), 500);
+
+    function createLoveBurst() {
+      for (let i = 0; i < 40; i++) {
+        const love = document.createElement("div");
+        love.className = "loveBurst";
+        love.textContent = "Love You 💞";
+        love.style.left = Math.random() * 50 + "vw";
+        love.style.top = Math.random() * 500 + "vh";
+        love.style.fontSize = (18 + Math.random() * 20) + "px";
+        love.style.animationDuration = (2 + Math.random() * 2) + "s";
+        document.body.appendChild(love);
+        setTimeout(() => love.remove(), 3500);
+      }
+    }
+
+    buttonEl.addEventListener("click", () => {
+      messageEl.classList.remove("active");
+      setTimeout(() => {
+        index++;
+        if (index < messages.length) {
+          messageEl.textContent = messages[index];
+          messageEl.classList.add("active");
+          buttonEl.textContent = buttonTexts[index];
+        } else {
+          messageEl.textContent = "Happy Birthday once again, my love 💝";
+          buttonEl.style.display = "none";
+
+          // Pop lots of "Love You 💞" messages
+          const loveInterval = setInterval(createLoveBurst, 500);
+          setTimeout(() => clearInterval(loveInterval), 5000);
+        }
+      }, 600);
+    });
+
+    window.onload = () => {
+      messageEl.classList.add("active");
+    };
+  </script>
+</body>
+</html>
